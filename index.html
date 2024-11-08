@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Generalizable Diffusion Policy with Transferable Affordance for Robotic Manipulation.">
+  <meta name="keywords" content="Diffusion Policy; Manipulation; Generalization">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <title>Nerfies: Deformable Neural Radiance Fields</title> -->
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/file_1.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"> 
+            <span style="background: -webkit-linear-gradient(left, rgb(227, 195, 209) , rgb(180, 199, 231)); -webkit-background-clip: text; color: transparent;">
+              Generalizable Diffusion Policy
+            </span>
+            <br>
+              with Transferable Affordance for Robotic Manipulation
+          </h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--/ Abstract. -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Diffusion-based policies have shown impressive performance in robotic manipulation tasks while struggling with out-of-domain distributions. 
+            Recent efforts attempted to enhance generalization to similar objects by incorporating additional knowledge, such as point cloud observations, 3D semantic fields, and SO(3)-equivariant networks. 
+            However, leveraging these priors is hard to generalize effectively to complex manipulation tasks for unseen objects and categories. 
+          </p>
+
+          <p>
+            Our key insight is that leveraging affordances—manipulation priors that define &quotwhere&quot and &quothow&quot an agent interacts with an object—can substantially enhance generalization to entirely unseen object instances and categories. 
+            This paper introduces the Generalizable Diffusion Policy with Transferable Affordance (<span class="dnerf">GeneralDP</span> ), designed for generalizable manipulation across novel categories. 
+            Specifically, we model affordances as both the contact point and the post-contact trajectory, capturing the static and dynamic information essential for intricate tasks such as folding clothes. 
+            The transferable affordance from in-domain data to unseen objects is achieved by estimating a 6D transformation matrix through the use of foundational vision models and point cloud registration techniques. 
+            Additionally, we incorporate affordance guidance during diffusion sampling to ensure fine-grained control over the generation process. Experimental results, in both simulated and real-world environments, demonstrate that <span class="dnerf">GeneralDP</span>  consistently outperforms previous diffusion-based methods, successfully generalizing to unseen instances and categories where others fail. 
+          </p>
+        </div>
+      </div>
+    </div>
+</section> 
+<!-- Paper video. -->
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.bilibili.com/video/BV12B1yYREqd/?spm_id_from=333.1007.tianma.1-1-1.click"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 border-b-1px mb-4">Overview</h2>
+    <div class="container is-max-widescreen">
+      <div class="columns is-centered">
+        <div class="column is-four-fifths has-text-centered">
+          <figure class="image">
+            <img src="./static/images/overview.png"  class="image-size">
+          </figure>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <div class="content has-text-justified">
+          <p>
+            Given the target scene RGB-D image, <span class="dnerf">GeneralDP</span> retrieves a similar object in the affordance memory and
+            transfers its affordance to the target object. Conditioned on 3D affordance and point cloud observation, <span class="dnerf">GeneralDP</span> utilizes the Diffusion
+            Policy and adaptive affordance guidance for precise control.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container is-max-desktop">
+  <h2 class="title is-3 border-b-1px mb-4">Simulation Results</h2>
+  <br>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/41083.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/46123.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/46859.mp4"
+                      type="video/mp4">
+            </video>
+            <!-- <div class="video-speed">1x</div> -->
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/47024.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/47944.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+</div>
+
+
+<div class="container is-max-desktop">
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/45162_door.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/45244_door.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/45575_door.mp4"
+                      type="video/mp4">
+            </video>
+            <div class="video-speed">1x</div>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/45623_door.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/Sim/45961_door.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+  <br>
+</div>
+
+
+
+
+<div class="container is-max-desktop">
+  <h2 class="title is-3 border-b-1px mb-4">Real world Results</h2>
+  <br>
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Open Door </h3>
+    <!-- </div> -->
+  </div>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDoor/3.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDoor/5.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDoor/4.mp4"
+                      type="video/mp4">
+            </video>
+            <!-- <div class="video-speed">1x</div> -->
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDoor/8.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+  <br>
+</div>
+
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Open Drawer </h3>
+    <!-- </div> -->
+  </div>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDrawer/2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDrawer/5.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDrawer/6.mp4"
+                      type="video/mp4">
+            </video>
+            <div class="video-speed">1x</div>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDrawer/7.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+</div>
+
+<br>
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Pick and Place </h3>
+    <!-- </div> -->
+  </div>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/PickUp/1.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/PickUp/2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/PickUp/3.mp4"
+                      type="video/mp4">
+            </video>
+            <div class="video-speed">1x</div>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/PickUp/4.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+</div>
+<br>
+<div class="container is-max-desktop">
+<h2 class="title is-3 border-b-1px mb-4">Generalizability</h2>
+<br>
+</div>
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section> -->
+
+<div class="container is-max-desktop">
+  <h2 class="title is-3 border-b-1px mb-4" style="text-align: justify">Comparison with Baselines</h2>
+  <br>
+  <div class="columns is-centered has-text-centered">
+      <div class="content has-text-justified" style="text-align: justify">
+        <p>
+          We benchmark <span class="dnerf">GeneralDP</span>  against baselines including Diffusion Policy and DP3 in different scenarios. Diffusion Policy and DP3 struggles to perform successfully in out-of-distribution scenarios. In contrast, <span class="dnerf">GeneralDP</span> effectively addresses this issue by leveraging affordance transfer.
+          Here are some sample comparative videos: 
+        </p>
+    </div>
+  </div>
+  <br>
+  <div class="columns is-centered">
+    <h3 class="title is-4" style="margin-bottom: 0rem;">Simulation scenarios in unseen instances manipulation</h3>
+  </div>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/dp_1.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌Diffusion Policy</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/dp3_1.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌DP3</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/ours_1.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">✅GeneralDP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <div class="columns is-centered">
+    <h3 class="title is-4" style="margin-bottom: 0rem;">Simulation scenarios in unseen categories manipulation</h3>
+  </div>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/dp_0.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌Diffusion Policy</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/dp3_0.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌DP3</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/comparison/sim/ours_0.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">✅GeneralDP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+</div>
+
+
+<footer class="footer">
+    <div class="columns is-centered">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
+          </p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
