@@ -49,10 +49,11 @@
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title"> 
             <span style="background: -webkit-linear-gradient(left, rgb(227, 195, 209) , rgb(180, 199, 231)); -webkit-background-clip: text; color: transparent;">
-              Generalizable Diffusion Policy
+              AffordDP
             </span>
+            : Generalizable Diffusion Policy 
             <br>
-              with Transferable Affordance for Robotic Manipulation
+            with Transferable Affordance
           </h1>
 
           </div>
@@ -73,21 +74,24 @@
         <div class="content has-text-justified">
           <p>
             Diffusion-based policies have shown impressive performance in robotic manipulation tasks while struggling with out-of-domain distributions. 
-            Recent efforts attempted to enhance generalization to similar objects by incorporating additional knowledge, such as point cloud observations, 3D semantic fields, and SO(3)-equivariant networks. 
-            However, leveraging these priors is hard to generalize effectively to complex manipulation tasks for unseen objects and categories. 
+            Recent efforts attempted to enhance generalization by improving the visual feature encoding for diffusion policy. 
+            However, their generalization is typically limited to the same category with similar appearances.
           </p>
 
           <p>
-            Our key insight is that leveraging affordances—manipulation priors that define &quotwhere&quot and &quothow&quot an agent interacts with an object—can substantially enhance generalization to entirely unseen object instances and categories. 
-            This paper introduces the Generalizable Diffusion Policy with Transferable Affordance (<span class="dnerf">GeneralDP</span> ), designed for generalizable manipulation across novel categories. 
-            Specifically, we model affordances as both the contact point and the post-contact trajectory, capturing the static and dynamic information essential for intricate tasks such as folding clothes. 
-            The transferable affordance from in-domain data to unseen objects is achieved by estimating a 6D transformation matrix through the use of foundational vision models and point cloud registration techniques. 
-            Additionally, we incorporate affordance guidance during diffusion sampling to ensure fine-grained control over the generation process. Experimental results, in both simulated and real-world environments, demonstrate that <span class="dnerf">GeneralDP</span>  consistently outperforms previous diffusion-based methods, successfully generalizing to unseen instances and categories where others fail. 
+            Our key insight is that leveraging affordances—manipulation priors that define "where" and "how" an agent interacts with an object—can substantially enhance generalization to entirely unseen object instances and categories. 
+            We introduce the Diffusion Policy with transferable Affordance (<span class="dnerf">AffordDP</span>), designed for generalizable manipulation across novel categories. 
+            <span class="dnerf">AffordDP</span> models affordances through 3D contact points and post-contact trajectories, capturing the essential static and dynamic information for complex tasks. 
+            The transferable affordance from in-domain data to unseen objects is achieved by estimating a 6D transformation matrix using foundational vision models and point cloud registration techniques. 
+            More importantly, we incorporate affordance guidance during diffusion sampling that can refine action sequence generation. 
+            This guidance directs the generated action to gradually move towards the desired manipulation for unseen objects while keeping the generated action within the manifold of action space. 
+            Experimental results from both simulated and real-world environments demonstrate that <span class="dnerf">AffordDP</span> consistently outperforms previous diffusion-based methods, successfully generalizing to unseen instances and categories where others fail. 
           </p>
         </div>
       </div>
     </div>
 </section> 
+
 <!-- Paper video. -->
 <!-- <section class="section">
   <div class="container is-max-desktop">
@@ -122,9 +126,8 @@
       <div class="column is-four-fifths">
         <div class="content has-text-justified">
           <p>
-            Given the target scene RGB-D image, <span class="dnerf">GeneralDP</span> retrieves a similar object in the affordance memory and
-            transfers its affordance to the target object. Conditioned on 3D affordance and point cloud observation, <span class="dnerf">GeneralDP</span> utilizes the Diffusion
-            Policy and adaptive affordance guidance for precise control.
+            Given the target scene RGB-D image,<span class="dnerf">AffordDP</span> retrieves a similar object in the affordance memory and transfers its static and dynamic affordance to the target object. 
+            Conditioned on 3D affordance, point cloud observation, and robot proprioception, <span class="dnerf">AffordDP</span> utilizes the Diffusion Policy and adaptive affordance guidance for precise control.
           </p>
         </div>
       </div>
@@ -224,6 +227,20 @@
       this using only ten demonstrations across four object categories.
     </p> -->
   </section>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-12">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/Sim/simplay.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <br>
 </div>
 
@@ -231,7 +248,7 @@
 
 
 <div class="container is-max-desktop">
-  <h2 class="title is-3 border-b-1px mb-4">Real world Results</h2>
+  <h2 class="title is-3 border-b-1px mb-4" >Real world Results</h2>
   <br>
   <div class="columns is-centered">
     <!-- <div class="column is-full-width"> -->
@@ -245,26 +262,26 @@
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item item-steve">
             <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDoor/3.mp4"
+              <source src="./static/videos/OpenDoor/cabinet_1.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-chair-tp">
             <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDoor/5.mp4"
+              <source src="./static/videos/OpenDoor/cabinet_2.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-shiba">
             <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDoor/4.mp4"
+              <source src="./static/videos/OpenDoor/cabinet_3_position.mp4"
                       type="video/mp4">
             </video>
             <!-- <div class="video-speed">1x</div> -->
           </div>
           <div class="item item-fullbody">
             <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDoor/8.mp4"
+              <source src="./static/videos/OpenDoor/cabinet_4.mp4"
                       type="video/mp4">
             </video>
           </div>
@@ -283,7 +300,7 @@
 <div class="container is-max-desktop">
   <div class="columns is-centered">
     <!-- <div class="column is-full-width"> -->
-      <h3 class="title is-4">Open Drawer </h3>
+      <h3 class="title is-4">Pull Drawer </h3>
     <!-- </div> -->
   </div>
 
@@ -293,26 +310,26 @@
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item item-steve">
             <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDrawer/2.mp4"
+              <source src="./static/videos/OpenDrawer/cabinet_3.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-chair-tp">
             <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDrawer/5.mp4"
+              <source src="./static/videos/OpenDrawer/cabinet_5.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-shiba">
             <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDrawer/6.mp4"
+              <source src="./static/videos/OpenDrawer/cabinet_6.mp4"
                       type="video/mp4">
             </video>
             <div class="video-speed">1x</div>
           </div>
           <div class="item item-fullbody">
             <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/OpenDrawer/4.mp4"
+              <source src="./static/videos/OpenDrawer/cabinet_7.mp4"
                       type="video/mp4">
             </video>
           </div>
@@ -340,26 +357,26 @@
         <div id="results-carousel" class="carousel results-carousel">
           <div class="item item-steve">
             <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/PickUp/1.mp4"
+              <source src="./static/videos/PickUp/cup_1.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-chair-tp">
             <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/PickUp/2.mp4"
+              <source src="./static/videos/PickUp/cup_2.mp4"
                       type="video/mp4">
             </video>
           </div>
           <div class="item item-shiba">
             <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/PickUp/3.mp4"
+              <source src="./static/videos/PickUp/cup_3.mp4"
                       type="video/mp4">
             </video>
             <div class="video-speed">1x</div>
           </div>
           <div class="item item-fullbody">
             <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/PickUp/4.mp4"
+              <source src="./static/videos/PickUp/cup_4.mp4"
                       type="video/mp4">
             </video>
           </div>
@@ -373,22 +390,198 @@
   </section>
 </div>
 <br>
+
 <div class="container is-max-desktop">
-<h2 class="title is-3 border-b-1px mb-4">Generalizability</h2>
-<br>
+  <h2 class="title is-3 border-b-1px mb-4" >Generalizability</h2>
+  <br>
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Generalize to unseen instances</h3>
+    <!-- </div> -->
+  </div>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendoor/ours_cabinet_8.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendoor/ours_cabinet_9.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendrawer/ours_cabinet_9.mp4"
+                      type="video/mp4">
+            </video>
+            <!-- <div class="video-speed">1x</div> -->
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendrawer/ours_cabinet_10.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/pick/ours_cup_5.mp4"
+                      type="video/mp4">
+            </video>
+            <!-- <div class="video-speed">1x</div> -->
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/pick/ours_cup_6.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+  <br>
 </div>
 
-<!-- <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
-}</code></pre>
+
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Generalize to unseen categories</h3>
+    <!-- </div> -->
   </div>
-</section> -->
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendoor/microwave_ours.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendoor/ours_refrigerator.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendrawer/ours_dressing_table.mp4"
+                      type="video/mp4">
+            </video>
+            <div class="video-speed">1x</div>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendrawer/oven_ours.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/pick/ours_pan.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/pick/ours_bowl.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+</div>
+
+<br>
+<div class="container is-max-desktop">
+  <div class="columns is-centered">
+    <!-- <div class="column is-full-width"> -->
+      <h3 class="title is-4">Generalize to unseen scenes</h3>
+    <!-- </div> -->
+  </div>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="container">
+        <div id="results-carousel" class="carousel results-carousel">
+          <div class="item item-steve">
+            <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/unseen scene/1.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-chair-tp">
+            <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/unseen scene/2.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-shiba">
+            <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/unseen scene/3.mp4"
+                      type="video/mp4">
+            </video>
+            <div class="video-speed">1x</div>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/unseen scene/4.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/OpenDoor/cabinet_3_high.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/supp_/opendrawer/ours_cabinet_7_high.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+          <div class="item item-fullbody">
+            <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
+              <source src="./static/videos/PickUp/cup_2_flower.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <p>
+      We designate novel objects to grasp using <b>open-ended language queries</b>, and achieve
+      this using only ten demonstrations across four object categories.
+    </p> -->
+  </section>
+</div>
+<br>
+
+
 
 <div class="container is-max-desktop">
   <h2 class="title is-3 border-b-1px mb-4" style="text-align: justify">Comparison with Baselines</h2>
@@ -396,14 +589,14 @@
   <div class="columns is-centered has-text-centered">
       <div class="content has-text-justified" style="text-align: justify">
         <p>
-          We benchmark <span class="dnerf">GeneralDP</span>  against baselines including Diffusion Policy and DP3 in different scenarios. Diffusion Policy and DP3 struggles to perform successfully in out-of-distribution scenarios. In contrast, <span class="dnerf">GeneralDP</span> effectively addresses this issue by leveraging affordance transfer.
+          We benchmark <span class="dnerf">AffordDP</span>  against baselines including Diffusion Policy and DP3 in different scenarios. Diffusion Policy and DP3 struggles to perform successfully in out-of-distribution scenarios. In contrast, <span class="dnerf">AffordDP</span> effectively addresses this issue by leveraging affordance transfer.
           Here are some sample comparative videos: 
         </p>
     </div>
   </div>
   <br>
   <div class="columns is-centered">
-    <h3 class="title is-4" style="margin-bottom: 0rem;">Simulation scenarios in unseen instances manipulation</h3>
+    <h3 class="title is-4" style="margin-bottom: 0rem;"> Unseen instances manipulation in simulation</h3>
   </div>
   <section class="hero is-light is-small">
     <div class="hero-body">    
@@ -425,7 +618,7 @@
             <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
               <source src="./static/comparison/sim/ours_1.mp4" type="video/mp4">
             </video>
-            <p class="has-text-centered">✅GeneralDP</p>
+            <p class="has-text-centered">✅AffordDP</p>
           </div>
         </div>
       </div>
@@ -433,7 +626,7 @@
   </section>
   <br>
   <div class="columns is-centered">
-    <h3 class="title is-4" style="margin-bottom: 0rem;">Simulation scenarios in unseen categories manipulation</h3>
+    <h3 class="title is-4" style="margin-bottom: 0rem;">Unseen categories manipulation in simulation</h3>
   </div>
   <section class="hero is-light is-small">
     <div class="hero-body">    
@@ -455,13 +648,67 @@
             <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
               <source src="./static/comparison/sim/ours_0.mp4" type="video/mp4">
             </video>
-            <p class="has-text-centered">✅GeneralDP</p>
+            <p class="has-text-centered">✅AffordDP</p>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <br>
+  <div class="columns is-centered">
+    <h3 class="title is-4" style="margin-bottom: 0rem;">Unseen categories manipulation in real-world</h3>
   </div>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/supp_/opendrawer/oven_dp.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌Diffusion Policy</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/supp_/opendrawer/oven_dp3.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌DP3</p>
+          </div>
+          <div class="column is-4">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/supp_/opendrawer/oven_ours.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">✅AffordDP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  <div class="columns is-centered">
+    <h3 class="title is-4" style="margin-bottom: 0rem;">Ablation study</h3>
+  </div>
+  <section class="hero is-light is-small">
+    <div class="hero-body">    
+      <div class="columns is-centered">
+        <div class="columns is-multiline is-variable is-2">
+          <div class="column is-6">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/supp_/opendrawer/ours_without_dsg.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">❌AffordDP without adaptive affordane guidance</p>
+          </div>
+          <div class="column is-6">
+            <video style="width:100%; height:auto;" controls muted loading="lazy" autoplay loop playsinline>
+              <source src="./static/videos/supp_/opendrawer/ours_cabinet_7_high.mp4" type="video/mp4">
+            </video>
+            <p class="has-text-centered">✅AffordDP</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </div>
 
