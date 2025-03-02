@@ -55,8 +55,84 @@
             <br>
             with Transferable Affordance
           </h1>
-
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a>Shijie Wu</a><sup>†</sup>,
+            </span>
+            <span class="author-block">
+              <a>Yihang Zhu</a><sup>†</sup>,
+            </span>
+            <span class="author-block">
+              <a>Yunao Huang</a>,
+            </span>
+            <span class="author-block">
+              <a>Kaizhen Zhu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://jiayuan-gu.github.io/">Jiayuan Gu</a>,
+            </span>
+            <span class="author-block">
+              <a>Jingyi Yu</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://shiye21.github.io/">Ye Shi</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://faculty.sist.shanghaitech.edu.cn/faculty/wangjingya/">Jingya Wang</a><sup>*</sup>
+            </span>
           </div>
+          
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>ShanghaiTech University</span>
+            <span class="author-block"><sup>†</sup>Equal contribution</span>
+            <span class="author-block"><sup>*</sup>Corresponding author</span>
+            <!-- <span class="author-block"><sup>2</sup>Google Research</span> -->
+          </div>
+       
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2412.03142" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2412.03142" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code(Coming Soon)</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/robotics-diffusion-transformer/rdt-ft-data" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <svg class="svg-inline--fa fa-database fa-w-14" aria-hidden="true" focusable="false"
+                      data-prefix="fas" data-icon="database" role="img" xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512" data-fa-i2svg="">
+                      <path fill="currentColor"
+                        d="M448 73.143v45.714C448 159.143 347.667 192 224 192S0 159.143 0 118.857V73.143C0 32.857 100.333 0 224 0s224 32.857 224 73.143zM448 176v102.857C448 319.143 347.667 352 224 352S0 319.143 0 278.857V176c48.125 33.143 136.208 48.572 224 48.572S399.874 209.143 448 176zm0 160v102.857C448 479.143 347.667 512 224 512S0 479.143 0 438.857V336c48.125 33.143 136.208 48.572 224 48.572S399.874 369.143 448 336z">
+                      </path>
+                    </svg><!-- <i class="fas fa-database"></i> Font Awesome fontawesome.com -->
+                  </span>
+                  <span>Data(Coming Soon)</span>
+                </a>
+              </span>
         </div>
       </div>
     </div>
@@ -92,25 +168,8 @@
     </div>
 </section> 
 
-<!-- Paper video. -->
+
 <!-- <section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.bilibili.com/video/BV12B1yYREqd/?spm_id_from=333.1007.tianma.1-1-1.click"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section> -->
-
-
-<section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 border-b-1px mb-4">Overview</h2>
     <div class="container is-max-widescreen">
@@ -133,7 +192,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 <div class="container is-max-desktop">
   <h2 class="title is-3 border-b-1px mb-4">Simulation Results</h2>
@@ -227,7 +286,10 @@
       this using only ten demonstrations across four object categories.
     </p> -->
   </section>
+  <br>
+</div>
 
+<div class="container is-max-desktop">
   <section class="hero is-light is-small">
     <div class="hero-body">    
       <div class="columns is-centered">
@@ -243,9 +305,6 @@
   </section>
   <br>
 </div>
-
-
-
 
 <div class="container is-max-desktop">
   <h2 class="title is-3 border-b-1px mb-4" >Real world Results</h2>
@@ -712,6 +771,25 @@
 
 </div>
 
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+      <h2 class="title">Citation</h2>
+      <div style="position: relative;">
+          <pre><code id="bibtex-code">@article{wu2024afforddp,
+            title={AffordDP: Generalizable Diffusion Policy with Transferable Affordance},
+            author={Wu, Shijie and Zhu, Yihang and Huang, Yunao and Zhu, Kaizhen and Gu, Jiayuan and Yu, Jingyi and Shi, Ye and Wang, Jingya},
+            journal={arXiv preprint arXiv:2412.03142},
+            year={2024}
+          }
+        </code></pre>
+          <button onclick="copyToClipboard()" style="position: absolute; top: 5px; right: 5px; background: none; border: none; cursor: pointer;">
+              <!-- 粘贴图标，可以使用Font Awesome 图标库 -->
+              <i class="fa fa-paste" aria-hidden="true"></i>
+          </button>
+      </div>
+  </div>
+</section>
 
 <footer class="footer">
     <div class="columns is-centered">
